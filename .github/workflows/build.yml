@@ -10,23 +10,18 @@ runs-on: windows-latest
 
 ```
 steps:
-  - name: Checkout repository
-    uses: actions/checkout@v4
+  - uses: actions/checkout@v4
 
-  - name: Clone Geode SDK
-    run: |
-      git clone https://github.com/geode-sdk/geode
+  - name: Clone Geode
+    run: git clone https://github.com/geode-sdk/geode
 
-  - name: Configure project
-    run: |
-      set GEODE_SDK=%CD%\geode
-      cmake -B build
+  - name: Configure
+    run: cmake -B build -DGEODE_SDK=geode
 
-  - name: Build mod
-    run: |
-      cmake --build build --config Release
+  - name: Build
+    run: cmake --build build --config Release
 
-  - name: Upload artifact
+  - name: Upload Artifact
     uses: actions/upload-artifact@v4
     with:
       name: LevelGenerator
