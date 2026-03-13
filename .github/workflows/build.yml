@@ -2,18 +2,31 @@ name: build
 
 on:
 push:
+workflow_dispatch:
 
 jobs:
 build:
 runs-on: windows-latest
 
 ```
+env:
+  GEODE_SDK: ${{ github.workspace }}/geode
+
 steps:
   - uses: actions/checkout@v4
 
-  - run: git clone https://github.com/geode-sdk/geode
+  - name: Clone Geode
+    run: git clone https://github.com/geode-sdk/geode
 
-  - run: cmake -B build -DGEODE_SDK=geode
+  - name: Configure
+    run: cmake -B build
 
-  - run: cmake --build build --config Release
+  - name: Build
+    run: cmake --build build --config Release
+
+  - name: Upload
+    uses: actions/upload-artifact@v4
+    with:
+      name: LevelGenerator
+      path: build
 ```
