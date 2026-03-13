@@ -1,4 +1,4 @@
-name: Build Geode Mod
+name: Build Mod
 
 on:
 push:
@@ -21,7 +21,7 @@ steps:
   - name: Build
     run: cmake --build build --config Release
 
-  - name: Upload Artifact
+  - name: Upload
     uses: actions/upload-artifact@v4
     with:
       name: LevelGenerator
